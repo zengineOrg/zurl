@@ -2,8 +2,8 @@
 
 namespace ZengineOrg\Zurl\Tests;
 
-use Orchestra\Testbench\TestCase;
 use ZengineOrg\Zurl\Zurl;
+use Orchestra\Testbench\TestCase;
 
 class ZurlTest extends TestCase
 {

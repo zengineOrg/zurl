@@ -3,13 +3,10 @@
 namespace ZengineOrg\Zurl;
 
 /**
- * Class Zurl
- *
- * @package ZengineOrg\Zurl
+ * Class Zurl.
  */
 class Zurl
 {
-
     protected $ch;
 
     protected $headers = [];
@@ -28,13 +25,14 @@ class Zurl
     public function __construct()
     {
         $this->ch = curl_init();
-        curl_setopt_array($this->ch,$this->defaultOptions);
+        curl_setopt_array($this->ch, $this->defaultOptions);
     }
 
     public function get($url, $vars = [])
     {
-        $completeUrl = $url . (strpos($url, '?') === false ? '?' : ''). http_build_query($vars);
+        $completeUrl = $url.(strpos($url, '?') === false ? '?' : '').http_build_query($vars);
         $this->withOption(CURLOPT_URL, $completeUrl);
+
         return $this;
     }
 
@@ -42,12 +40,14 @@ class Zurl
     {
         $this->withOption(CURLOPT_URL, $url);
         $this->withOption(CURLOPT_CUSTOMREQUEST, 'POST');
+
         return $this;
     }
 
     public function withUserAgent($agentName)
     {
         curl_setopt($this->ch, CURLOPT_USERAGENT, $agentName);
+
         return $this;
     }
 
@@ -59,6 +59,7 @@ class Zurl
     public function withHeader($name, $value)
     {
         $this->headers[$name] = $value;
+
         return $this;
     }
 
@@ -67,6 +68,7 @@ class Zurl
         foreach ($headers as $name => $value) {
             $this->withHeader($name, $value);
         }
+
         return $this;
     }
 
@@ -74,6 +76,7 @@ class Zurl
     {
         $this->withOption(CURLOPT_SSL_VERIFYHOST, false);
         $this->withOption(CURLOPT_SSL_VERIFYPEER, false);
+
         return $this;
     }
 
@@ -84,6 +87,7 @@ class Zurl
         $this->withOption(CURLOPT_POSTFIELDS, $data_string);
         $this->withHeader('Content-Type', 'application/json');
         $this->withHeader('Accept', 'application/json');
+
         return $this;
     }
 
@@ -96,5 +100,4 @@ class Zurl
     {
         curl_close($this->ch);
     }
-
 }
