@@ -28,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ZengineOrg\\Zurl\\": "src"
+            "Zengine\\Zurl\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ZengineOrg\\Zurl\\Tests\\": "tests"
+            "Zengine\\Zurl\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -46,7 +46,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "ZengineOrg\\Zurl\\ZurlServiceProvider"
+                "Zengine\\Zurl\\ZurlServiceProvider"
             ]
         }
     }
