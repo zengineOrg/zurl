@@ -1,6 +1,6 @@
 <?php
 
-namespace ZengineOrg\Zurl;
+namespace Zengine\Zurl;
 
 /**
  * Class Zurl.
