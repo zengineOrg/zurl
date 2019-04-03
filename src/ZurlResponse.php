@@ -1,6 +1,7 @@
 <?php
 
-namespace ZengineOrg\Zurl;
+namespace Zengine\Zurl;
+
 
 class ZurlResponse
 {
@@ -49,10 +50,11 @@ class ZurlResponse
     public function failed()
     {
         if (curl_getinfo($this->ch, CURLINFO_HTTP_CODE) === 0) {
+
             return true;
         }
 
-        if (! $this->curlHasResult()) {
+        if (!$this->curlHasResult()) {
             return false;
         }
 
@@ -64,7 +66,7 @@ class ZurlResponse
      */
     protected function curlHasResult()
     {
-        return (bool) $this->curlResult;
+        return (bool)$this->curlResult;
     }
 
     /**
@@ -76,7 +78,7 @@ class ZurlResponse
     {
         json_decode($string);
 
-        return json_last_error() == JSON_ERROR_NONE;
+        return (json_last_error() == JSON_ERROR_NONE);
     }
 
     /**
@@ -88,4 +90,5 @@ class ZurlResponse
     {
         return $string != strip_tags($string) ? true : false;
     }
+
 }
