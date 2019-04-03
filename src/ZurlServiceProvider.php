@@ -11,7 +11,6 @@ class ZurlServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
     }
 
     /**
@@ -19,7 +18,5 @@ class ZurlServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
-
 }

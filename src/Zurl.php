@@ -3,13 +3,10 @@
 namespace ZengineOrg\Zurl;
 
 /**
- * Class Zurl
- *
- * @package ZengineOrg\Zurl
+ * Class Zurl.
  */
 class Zurl
 {
-
     protected $ch;
 
     protected $headers = [];
@@ -104,5 +101,4 @@ class Zurl
     {
         curl_close($this->ch);
     }
-
 }
