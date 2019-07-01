@@ -30,7 +30,7 @@ class Zurl
 
     public function get($url, $vars = [])
     {
-        $completeUrl = $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($vars);
+        $completeUrl = $url.(strpos($url, '?') === false ? '?' : '').http_build_query($vars);
         $this->withOption(CURLOPT_URL, $completeUrl);
 
         return $this;

@@ -25,10 +25,10 @@ class ZurlTest extends TestCase
 
         $response = $zurl->execute();
 
-        $this->assertArrayHasKey('http_code',$response->getResponse());
-        $this->assertArrayHasKey('body',$response->getResponse());
-        $this->assertArrayHasKey('headers',$response->getResponse());
-        $this->assertArrayHasKey('total_time',$response->getResponse());
+        $this->assertArrayHasKey('http_code', $response->getResponse());
+        $this->assertArrayHasKey('body', $response->getResponse());
+        $this->assertArrayHasKey('headers', $response->getResponse());
+        $this->assertArrayHasKey('total_time', $response->getResponse());
         $this->assertFalse($response->failed());
         $zurl->close();
     }
