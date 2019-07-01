@@ -49,6 +49,10 @@ class ZurlResponse
      */
     public function failed()
     {
+        if (curl_errno($this->ch)) {
+            return true;
+        }
+
         if (curl_getinfo($this->ch, CURLINFO_HTTP_CODE) === 0) {
 
             return true;
@@ -59,6 +63,11 @@ class ZurlResponse
         }
 
         return curl_getinfo($this->ch, CURLINFO_HTTP_CODE) >= 400;
+    }
+
+    public function errors()
+    {
+        return curl_error($this->ch);
     }
 
     /**
