@@ -2,7 +2,6 @@
 
 namespace Zengine\Zurl;
 
-
 class ZurlResponse
 {
     protected $ch;
@@ -49,16 +48,24 @@ class ZurlResponse
      */
     public function failed()
     {
-        if (curl_getinfo($this->ch, CURLINFO_HTTP_CODE) === 0) {
-
+        if (curl_errno($this->ch)) {
             return true;
         }
 
-        if (!$this->curlHasResult()) {
+        if (curl_getinfo($this->ch, CURLINFO_HTTP_CODE) === 0) {
+            return true;
+        }
+
+        if (! $this->curlHasResult()) {
             return false;
         }
 
         return curl_getinfo($this->ch, CURLINFO_HTTP_CODE) >= 400;
+    }
+
+    public function errors()
+    {
+        return curl_error($this->ch);
     }
 
     /**
@@ -66,7 +73,7 @@ class ZurlResponse
      */
     protected function curlHasResult()
     {
-        return (bool)$this->curlResult;
+        return (bool) $this->curlResult;
     }
 
     /**
@@ -78,7 +85,7 @@ class ZurlResponse
     {
         json_decode($string);
 
-        return (json_last_error() == JSON_ERROR_NONE);
+        return json_last_error() == JSON_ERROR_NONE;
     }
 
     /**
@@ -90,5 +97,4 @@ class ZurlResponse
     {
         return $string != strip_tags($string) ? true : false;
     }
-
 }

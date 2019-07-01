@@ -30,7 +30,7 @@ class Zurl
 
     public function get($url, $vars = [])
     {
-        $completeUrl = $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($vars);
+        $completeUrl = $url.(strpos($url, '?') === false ? '?' : '').http_build_query($vars);
         $this->withOption(CURLOPT_URL, $completeUrl);
 
         return $this;
@@ -40,7 +40,33 @@ class Zurl
     {
         $this->withOption(CURLOPT_URL, $url);
         $this->withOption(CURLOPT_CUSTOMREQUEST, 'POST');
-        $this->withPayload($payload);
+        $this->withJsonPayload($payload);
+
+        return $this;
+    }
+
+    public function put($url, $payload = [])
+    {
+        $this->withOption(CURLOPT_URL, $url);
+        $this->withOption(CURLOPT_CUSTOMREQUEST, 'PUT');
+        $this->withJsonPayload($payload);
+
+        return $this;
+    }
+
+    public function patch($url, $payload = [])
+    {
+        $this->withOption(CURLOPT_URL, $url);
+        $this->withOption(CURLOPT_CUSTOMREQUEST, 'PUT');
+        $this->withJsonPayload($payload);
+
+        return $this;
+    }
+
+    public function delete($url)
+    {
+        $this->withOption(CURLOPT_URL, $url);
+        $this->withOption(CURLOPT_CUSTOMREQUEST, 'DELETE');
 
         return $this;
     }
@@ -55,6 +81,11 @@ class Zurl
     public function withOption($option, $value)
     {
         curl_setopt($this->ch, $option, $value);
+    }
+
+    public function withAuthorization($token, $name = 'Bearer')
+    {
+        $this->withHeader('Authorisation', "$name $token");
     }
 
     public function withHeader($name, $value)
@@ -81,7 +112,7 @@ class Zurl
         return $this;
     }
 
-    public function withPayload($payload)
+    public function withJsonPayload($payload)
     {
         $data_string = json_encode($payload);
         $this->withHeader('Content-Length', strlen($data_string));
@@ -94,6 +125,8 @@ class Zurl
 
     public function execute()
     {
+        $this->withOption(CURLOPT_HTTPHEADER, $this->headers);
+
         return new ZurlResponse($this->ch);
     }
 
